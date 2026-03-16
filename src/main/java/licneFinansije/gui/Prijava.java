@@ -19,6 +19,7 @@ public class Prijava extends javax.swing.JFrame {
 
     public Prijava() {
         initComponents();
+        getRootPane().setDefaultButton(prijavaDugme);
         setResizable(false);
         setLocationRelativeTo(null);
     }

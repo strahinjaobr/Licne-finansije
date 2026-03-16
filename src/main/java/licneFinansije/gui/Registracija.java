@@ -27,6 +27,7 @@ public class Registracija extends javax.swing.JFrame {
      */
     public Registracija() {
         initComponents();
+        getRootPane().setDefaultButton(dugmeRegistracija);
         setResizable(false);
         setLocationRelativeTo(null);
         
