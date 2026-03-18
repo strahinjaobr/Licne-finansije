@@ -6,11 +6,16 @@ package licneFinansije.gui;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
 import java.time.format.DateTimeFormatter;
 import java.util.LinkedList;
 import java.util.List;
+import javax.swing.AbstractAction;
+import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.KeyStroke;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import licneFinansije.Serijalizacija;
@@ -38,6 +43,41 @@ public class Home extends javax.swing.JFrame {
 
     public Home(Korisnik k) {
         initComponents();
+        
+jButton1.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW)
+    .put(KeyStroke.getKeyStroke(KeyEvent.VK_ADD, 0), "dodajPrihod");
+jButton1.getActionMap().put("dodajPrihod", new AbstractAction() {
+    public void actionPerformed(ActionEvent e) {
+        jButton1ActionPerformed(e);
+    }
+});
+
+jButton3.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW)
+    .put(KeyStroke.getKeyStroke(KeyEvent.VK_D, KeyEvent.CTRL_DOWN_MASK), "obrisi");
+jButton3.getActionMap().put("obrisi", new AbstractAction() {
+    public void actionPerformed(ActionEvent e) {
+        jButton3ActionPerformed(e);
+    }
+});
+
+
+
+izmeniDugme.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW)
+    .put(KeyStroke.getKeyStroke(KeyEvent.VK_I, KeyEvent.CTRL_DOWN_MASK), "izmeni");
+izmeniDugme.getActionMap().put("izmeni", new AbstractAction() {
+    public void actionPerformed(ActionEvent e) {
+        izmeniDugmeActionPerformed(e);
+    }
+});
+
+
+jButton2.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW)
+    .put(KeyStroke.getKeyStroke(KeyEvent.VK_SUBTRACT, 0), "dodajTrosak");
+jButton2.getActionMap().put("dodajTrosak", new AbstractAction() {
+    public void actionPerformed(ActionEvent e) {
+        jButton2ActionPerformed(e);
+    }
+});
         
         jTable1.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
     @Override
@@ -153,10 +193,16 @@ public class Home extends javax.swing.JFrame {
         labelaZadrzi.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         labelaZadrzi.setText("* zadrži za prikaz");
 
+        jButton1.setBackground(new java.awt.Color(123, 188, 243));
+        jButton1.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setText("Dodaj prihod");
         jButton1.setPreferredSize(new java.awt.Dimension(124, 23));
         jButton1.addActionListener(this::jButton1ActionPerformed);
 
+        jButton2.setBackground(new java.awt.Color(72, 156, 255));
+        jButton2.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        jButton2.setForeground(new java.awt.Color(255, 255, 255));
         jButton2.setText("Dodaj trošak");
         jButton2.setPreferredSize(new java.awt.Dimension(124, 23));
         jButton2.addActionListener(this::jButton2ActionPerformed);
@@ -179,9 +225,15 @@ public class Home extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(jTable1);
 
+        izmeniDugme.setBackground(new java.awt.Color(11, 80, 189));
+        izmeniDugme.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        izmeniDugme.setForeground(new java.awt.Color(255, 255, 255));
         izmeniDugme.setText("izmeni transakciju");
         izmeniDugme.addActionListener(this::izmeniDugmeActionPerformed);
 
+        jButton3.setBackground(new java.awt.Color(0, 55, 175));
+        jButton3.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        jButton3.setForeground(new java.awt.Color(255, 255, 255));
         jButton3.setText("Obriši transakciju");
         jButton3.setPreferredSize(new java.awt.Dimension(124, 23));
         jButton3.addActionListener(this::jButton3ActionPerformed);
@@ -206,26 +258,24 @@ public class Home extends javax.swing.JFrame {
                             .addComponent(CBSakrijStanje, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addGap(288, 288, 288))
                     .addGroup(panelHomeLayout.createSequentialGroup()
-                        .addGap(38, 38, 38)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 831, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panelHomeLayout.createSequentialGroup()
-                        .addGroup(panelHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(panelHomeLayout.createSequentialGroup()
-                                .addGap(61, 61, 61)
-                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(77, 77, 77)
-                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(63, 63, 63)
-                                .addComponent(izmeniDugme)
-                                .addGap(67, 67, 67)
-                                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(panelHomeLayout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(labelaIme, javax.swing.GroupLayout.PREFERRED_SIZE, 348, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 138, Short.MAX_VALUE)))
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(labelaIme, javax.swing.GroupLayout.PREFERRED_SIZE, 348, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
+            .addGroup(panelHomeLayout.createSequentialGroup()
+                .addGap(26, 26, 26)
+                .addGroup(panelHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(panelHomeLayout.createSequentialGroup()
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(69, 69, 69)
+                        .addComponent(izmeniDugme)
+                        .addGap(70, 70, 70)
+                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 831, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(67, Short.MAX_VALUE))
         );
         panelHomeLayout.setVerticalGroup(
             panelHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
