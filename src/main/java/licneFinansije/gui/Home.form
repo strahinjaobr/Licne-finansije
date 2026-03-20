@@ -3,6 +3,18 @@
 <Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <NonVisualComponents>
     <Menu class="javax.swing.JMenuBar" name="jMenuBar1">
+      <Properties>
+        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+          <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
+            <LineBorder>
+              <Color PropertyName="color" blue="ff" green="ff" red="ff" type="rgb"/>
+            </LineBorder>
+          </Border>
+        </Property>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="SansSerif" size="12" style="1"/>
+        </Property>
+      </Properties>
       <SubComponents>
         <Menu class="javax.swing.JMenu" name="jMenu1">
           <Properties>
@@ -110,17 +122,21 @@
               </Group>
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Group type="102" attributes="0">
-                          <Component id="jButton2" min="-2" pref="139" max="-2" attributes="0"/>
-                          <EmptySpace max="32767" attributes="0"/>
-                          <Component id="jButton1" min="-2" pref="151" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="69" max="-2" attributes="0"/>
-                          <Component id="izmeniDugme" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="70" max="-2" attributes="0"/>
-                          <Component id="jButton3" min="-2" pref="170" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Group type="102" attributes="0">
+                              <Component id="jButton2" min="-2" pref="139" max="-2" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
+                              <Component id="jButton1" min="-2" pref="151" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="69" max="-2" attributes="0"/>
+                              <Component id="izmeniDugme" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="70" max="-2" attributes="0"/>
+                              <Component id="jButton3" min="-2" pref="170" max="-2" attributes="0"/>
+                          </Group>
+                          <Component id="jScrollPane2" min="-2" pref="831" max="-2" attributes="0"/>
                       </Group>
-                      <Component id="jScrollPane2" min="-2" pref="831" max="-2" attributes="0"/>
+                      <Component id="unosPretraga" min="-2" pref="139" max="-2" attributes="0"/>
+                      <Component id="jLabel2" alignment="0" min="-2" pref="124" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace pref="67" max="32767" attributes="0"/>
               </Group>
@@ -141,12 +157,16 @@
                       <Component id="dugmePrikaziStanje" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
                       <Component id="labelaZadrzi" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="66" max="32767" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
+                  <Component id="unosPretraga" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jButton1" alignment="3" min="-2" pref="49" max="-2" attributes="0"/>
                       <Component id="jButton2" alignment="3" min="-2" pref="53" max="-2" attributes="0"/>
                       <Component id="izmeniDugme" alignment="3" min="-2" pref="50" max="-2" attributes="0"/>
-                      <Component id="jButton3" alignment="3" pref="54" max="32767" attributes="0"/>
+                      <Component id="jButton3" alignment="3" min="-2" pref="52" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="jScrollPane2" min="-2" pref="328" max="-2" attributes="0"/>
@@ -334,6 +354,13 @@
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton3ActionPerformed"/>
           </Events>
+        </Component>
+        <Component class="javax.swing.JTextField" name="unosPretraga">
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabel2">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="*pretraga po opisu"/>
+          </Properties>
         </Component>
       </SubComponents>
     </Container>

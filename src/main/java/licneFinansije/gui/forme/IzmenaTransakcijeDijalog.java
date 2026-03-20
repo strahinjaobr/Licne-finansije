@@ -35,7 +35,7 @@ public class IzmenaTransakcijeDijalog extends javax.swing.JDialog {
     setLocationRelativeTo(null);
     i=tr.getID();
     unosIznos.setText(t.getIznosTransakcije()+"");
-    CBKategorije.setSelectedItem(tr.getKategorija());
+    CBKategorije.setSelectedItem(tr.getKategorija().toString());
     textAreaOpis.setText(t.getOpis());
     
 }

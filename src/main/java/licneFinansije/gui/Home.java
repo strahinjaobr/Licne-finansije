@@ -43,6 +43,11 @@ public class Home extends javax.swing.JFrame {
 
     public Home(Korisnik k) {
         initComponents();
+        unosPretraga.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
+    public void changedUpdate(javax.swing.event.DocumentEvent e) { pretrazi(); }
+    public void insertUpdate(javax.swing.event.DocumentEvent e) { pretrazi(); }
+    public void removeUpdate(javax.swing.event.DocumentEvent e) { pretrazi(); }
+});
         
 jButton1.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW)
     .put(KeyStroke.getKeyStroke(KeyEvent.VK_ADD, 0), "dodajPrihod");
@@ -111,7 +116,7 @@ jButton2.getActionMap().put("dodajTrosak", new AbstractAction() {
     DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
     model.setRowCount(0);
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy. HH:mm");
-    for(Transakcija t : korisnik.getTransakcije().reversed()) {
+    for(Transakcija t : korisnik.getTransakcije()) {
         String kategorija = "";
         if(t instanceof Trosak)
             kategorija = ((Trosak)t).getKategorija().toString();
@@ -128,6 +133,28 @@ jButton2.getActionMap().put("dodajTrosak", new AbstractAction() {
     }
 
     }
+   public void pretrazi(){
+    String unos = unosPretraga.getText();
+    DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+    model.setRowCount(0);
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy. HH:mm");
+    for(Transakcija t : korisnik.getTransakcije()){
+        if(t.getOpis().toLowerCase().contains(unos.toLowerCase())){
+            String kategorija = "";
+            if(t instanceof Trosak)
+                kategorija = ((Trosak)t).getKategorija().toString();
+            else if(t instanceof Prihod)
+                kategorija = ((Prihod)t).getKategorija().toString();
+            model.addRow(new Object[]{
+                t instanceof Prihod ? "Prihod" : "Trosak",
+                t.getIznosTransakcije(),
+                t.getVremeTransakcije().format(formatter),
+                kategorija,
+                t.getOpis()
+            });
+        }
+    }
+}
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -146,6 +173,8 @@ jButton2.getActionMap().put("dodajTrosak", new AbstractAction() {
         jTable1 = new javax.swing.JTable();
         izmeniDugme = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
+        unosPretraga = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
@@ -238,6 +267,8 @@ jButton2.getActionMap().put("dodajTrosak", new AbstractAction() {
         jButton3.setPreferredSize(new java.awt.Dimension(124, 23));
         jButton3.addActionListener(this::jButton3ActionPerformed);
 
+        jLabel2.setText("*pretraga po opisu");
+
         javax.swing.GroupLayout panelHomeLayout = new javax.swing.GroupLayout(panelHome);
         panelHome.setLayout(panelHomeLayout);
         panelHomeLayout.setHorizontalGroup(
@@ -265,16 +296,19 @@ jButton2.getActionMap().put("dodajTrosak", new AbstractAction() {
                 .addContainerGap())
             .addGroup(panelHomeLayout.createSequentialGroup()
                 .addGap(26, 26, 26)
-                .addGroup(panelHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(panelHomeLayout.createSequentialGroup()
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(69, 69, 69)
-                        .addComponent(izmeniDugme)
-                        .addGap(70, 70, 70)
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 831, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(panelHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(panelHomeLayout.createSequentialGroup()
+                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(69, 69, 69)
+                            .addComponent(izmeniDugme)
+                            .addGap(70, 70, 70)
+                            .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 831, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(unosPretraga, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(67, Short.MAX_VALUE))
         );
         panelHomeLayout.setVerticalGroup(
@@ -290,12 +324,16 @@ jButton2.getActionMap().put("dodajTrosak", new AbstractAction() {
                 .addGroup(panelHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(dugmePrikaziStanje, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(labelaZadrzi))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 66, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(unosPretraga, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel2)
+                .addGap(34, 34, 34)
                 .addGroup(panelHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(izmeniDugme, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, 54, Short.MAX_VALUE))
+                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -304,6 +342,9 @@ jButton2.getActionMap().put("dodajTrosak", new AbstractAction() {
                     .addComponent(labelaIme))
                 .addGap(77, 77, 77))
         );
+
+        jMenuBar1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        jMenuBar1.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
 
         jMenu1.setText("Početna");
         jMenuBar1.add(jMenu1);
@@ -439,6 +480,7 @@ this.dispose();
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
@@ -450,5 +492,6 @@ this.dispose();
     private javax.swing.JLabel labelaStanje;
     private javax.swing.JLabel labelaZadrzi;
     private javax.swing.JPanel panelHome;
+    private javax.swing.JTextField unosPretraga;
     // End of variables declaration//GEN-END:variables
 }

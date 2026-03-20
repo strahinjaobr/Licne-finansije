@@ -34,7 +34,7 @@ public class IzmenaPrihodaDijalog extends javax.swing.JDialog {
         this.transakcija=transakcija;
         unosIznos.setText(transakcija.getIznosTransakcije()+"");
         Prihod p=(Prihod)transakcija;
-        CBKategorije.setSelectedItem(p.getKategorija());
+        CBKategorije.setSelectedItem(p.getKategorija().toString());
         textAreaOpis.setText(transakcija.getOpis());
         
     }
@@ -75,7 +75,6 @@ public class IzmenaPrihodaDijalog extends javax.swing.JDialog {
         jScrollPane1.setViewportView(textAreaOpis);
 
         jButton2.setText("Izmeni prihod");
-        jButton2.setActionCommand("Izmeni prihod");
         jButton2.addActionListener(this::jButton2ActionPerformed);
 
         jButton1.setText("Odustani");
@@ -139,7 +138,7 @@ public class IzmenaPrihodaDijalog extends javax.swing.JDialog {
             String kategorijaString=CBKategorije.getSelectedItem().toString();
             Prihod p=(Prihod)transakcija;
             p.setKategorija(KategorijaPrihodi.valueOf(kategorijaString));
-            
+            transakcija.setOpis(textAreaOpis.getText());
             List<Korisnik>listaKorisnika=new LinkedList<>(Serijalizacija.deserijalizuj());
             korisnik.izmeniTransakciju(p.getID(), p);
             listaKorisnika.removeIf(k -> k.getUserName().equals(korisnik.getUserName()));
